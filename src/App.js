@@ -4,82 +4,101 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sessionTime: 25,
-      breakTime: 5,
-      sessionRemaining: 25,
-      breakRemaining: 5, 
-      timerStatus: "stopped"
+      sessionTimeEntry: 25, //in min
+      breakTimeEntry: 5, //in min
+      sessionRemainingSeconds: 1500, //in seconds
+      breakRemainingSeconds: 300, //in seconds
+      running: false,
+      timerLabel: "Session"
     }
     this.addSession = this.addSession.bind(this);
     this.subSession = this.subSession.bind(this);
     this.addBreak = this.addBreak.bind(this);
     this.subBreak = this.subBreak.bind(this);
-    this.startStop = this.startStop.bind(this);
+    //this.startStop = this.startStop.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.formatMinutes = this.formatMinutes.bind(this);
   }
 
-  addSession() {
+  addSession() { //adding and subtracting methods need to also chage the session remaining in seconds to mirrow the entry time if ever changed
     this.setState({
-      sessionTime: this.state.sessionTime + 1,
-      sessionRemaining: this.state.sessionRemaining + 1
+      sessionTimeEntry: this.state.sessionTimeEntry + 1,
+      sessionRemainingSeconds: this.state.sessionRemainingSeconds + 60
     })
   }
 
   subSession() {
     this.setState({
-      sessionTime: this.state.sessionTime - 1,
-      sessionRemaining: this.state.sessionRemaining - 1
+      sessionTimeEntry: this.state.sessionTimeEntry - 1,
+      sessionRemainingSeconds: this.state.sessionRemainingSeconds - 60
 
     })
   }
   
   addBreak() {
     this.setState({
-      breakTime: this.state.breakTime + 1,
-      breakRemaining: this.state.breakRemaining + 1
+      breakTimeEntry: this.state.breakTimeEntry + 1,
+      breakRemainingSeconds: this.state.breakRemainingSeconds + 60
     })
   }
 
   subBreak() {
     this.setState({
-      breakTime: this.state.breakTime - 1,
-      breakRemaining: this.state.breakRemaining - 1
+      breakTimeEntry: this.state.breakTimeEntry - 1,
+      breakRemainingSeconds: this.state.breakRemainingSeconds - 60
     })
   }
 
   // startStop() {
-  //   const seconds = (this.state.sessionRemaining * 60) % 60;
-  //   const minutes = this.state.sessionRemaining;
-  //   seconds = seconds < 10 ? "0" + seconds : seconds;
-  //   minutes = minutes < 10 ? "0" + minutes : minutes;
-  //   this.setState({
+  //   const sessionSeconds = this.state.sessionRemainingSeconds;
+  //   const breakSeconds = this.state.breakRemainingSeconds;
+  //   // seconds = seconds < 10 ? "0" + seconds : seconds; //edit these...seconds used to be % 60 and now is not
+  //   // minutes = minutes < 10 ? "0" + minutes : minutes;
 
-  //   })
+
+  //   switch (this.state.running) {
+  //     case false:
+  //       this.interval = setInterval(() => this.setState({
+
+  //       }))
+  //       break;
+  //     case true:
+  //       //pause timer
+  //       break; 
+  //   }
   // }
 
   resetTimer() {
     this.setState({
-      sessionTime: 25,
-      breakTime: 5,
-      sessionRemaining: 25,
-      breakRemaining: 5
+      sessionTimeEntry: 25,
+      breakTimeEntry: 5,
+      sessionRemainingSeconds: 1500,
+      breakRemainingSeconds: 300
     })
+  }
+
+  formatMinutes(time) {
+    let seconds = time;
+    const minutes = (seconds % 60 === 0 ) ? ((seconds/60) < 10 ? "0" + seconds/60 : seconds/60): (Math.floor(seconds/60) < 10 ? "0" + Math.floor(seconds/60) : Math.floor(seconds/60));
+    seconds = (seconds % 60 === 0 ) ? "00" : ((seconds % 60 < 10) ? "0"+ (seconds % 60) : seconds % 60)
+    console.log(minutes + ":" + seconds);
+    return minutes + ":" + seconds;
   }
 
   render() {
     return (
       <div>
         <h1>Pomodoro Clock</h1>
-        <h2>{this.state.sessionTime}</h2>
+        <h2>{this.state.sessionTimeEntry}</h2>
         <div id='timerContainer'>
           <h3 id="session-label">Session Time</h3>
-          <h3 id="session-length">{this.state.sessionTime}</h3>
+          <h3 id="session-length">{this.formatMinutes(this.state.sessionRemainingSeconds)}</h3>
           <button onClick={this.addSession} id="session-increment">^</button>
           <button onClick={this.subSession} id="session-decrement">v</button>
         </div>
         <div id='timerContainer'>
           <h3 id="break-label">Break Time</h3>
-          <h3 id="break-length">{this.state.breakTime}</h3>
+          <h3 id="break-length">{this.state.breakTimeEntry}</h3>
           <button onClick={this.addBreak} id="break-increment">^</button>
           <button onClick={this.subBreak} id="break-decrement">v</button>
         </div>
@@ -96,9 +115,9 @@ class App extends React.Component {
 export default App;
 
 
-// var sessionRemaining = 12;
-// var seconds = (sessionRemaining * 60) % 60;
-// var minutes = sessionRemaining;
+// var sessionRemainingSeconds = 12;
+// var seconds = (sessionRemainingSeconds * 60) % 60;
+// var minutes = sessionRemainingSeconds;
 //     seconds = seconds < 10 ? "0" + seconds : seconds;
 //     minutes = minutes < 10 ? "0" + minutes : minutes;
 //     console.log(seconds);
