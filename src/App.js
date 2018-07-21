@@ -7,7 +7,8 @@ class App extends React.Component {
       sessionTime: 25,
       breakTime: 5,
       sessionRemaining: 25,
-      breakRemaining: 5
+      breakRemaining: 5, 
+      timerStatus: "stopped"
     }
     this.addSession = this.addSession.bind(this);
     this.subSession = this.subSession.bind(this);
@@ -46,15 +47,15 @@ class App extends React.Component {
     })
   }
 
-  startStop() {
-    const seconds = (this.state.sessionRemaining * 60) % 60;
-    const minutes = this.state.sessionRemaining;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    this.setState({
+  // startStop() {
+  //   const seconds = (this.state.sessionRemaining * 60) % 60;
+  //   const minutes = this.state.sessionRemaining;
+  //   seconds = seconds < 10 ? "0" + seconds : seconds;
+  //   minutes = minutes < 10 ? "0" + minutes : minutes;
+  //   this.setState({
 
-    })
-  }
+  //   })
+  // }
 
   resetTimer() {
     this.setState({
@@ -71,20 +72,20 @@ class App extends React.Component {
         <h1>Pomodoro Clock</h1>
         <h2>{this.state.sessionTime}</h2>
         <div id='timerContainer'>
-          <h3>Session Time</h3>
-          <h3>{this.state.sessionTime}</h3>
-          <button onClick={this.addSession}>^</button>
-          <button onClick={this.subSession}>v</button>
+          <h3 id="session-label">Session Time</h3>
+          <h3 id="session-length">{this.state.sessionTime}</h3>
+          <button onClick={this.addSession} id="session-increment">^</button>
+          <button onClick={this.subSession} id="session-decrement">v</button>
         </div>
         <div id='timerContainer'>
-          <h3>Break Time</h3>
-          <h3>{this.state.breakTime}</h3>
-          <button onClick={this.addBreak}>^</button>
-          <button onClick={this.subBreak}>v</button>
+          <h3 id="break-label">Break Time</h3>
+          <h3 id="break-length">{this.state.breakTime}</h3>
+          <button onClick={this.addBreak} id="break-increment">^</button>
+          <button onClick={this.subBreak} id="break-decrement">v</button>
         </div>
         <div>
-          <button onClick={this.startStop}>Start/Stop</button>
-          <button onClick={this.resetTimer}>Reset</button>
+          <button onClick={this.startStop} id="start-stop">Start/Stop</button>
+          <button onClick={this.resetTimer} id="reset">Reset</button>
         </div>
       </div>
     )
@@ -95,10 +96,10 @@ class App extends React.Component {
 export default App;
 
 
-var sessionRemaining = 12;
-var seconds = (sessionRemaining * 60) % 60;
-var minutes = sessionRemaining;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    console.log(seconds);
-    console.log(minutes);
+// var sessionRemaining = 12;
+// var seconds = (sessionRemaining * 60) % 60;
+// var minutes = sessionRemaining;
+//     seconds = seconds < 10 ? "0" + seconds : seconds;
+//     minutes = minutes < 10 ? "0" + minutes : minutes;
+//     console.log(seconds);
+//     console.log(minutes);
