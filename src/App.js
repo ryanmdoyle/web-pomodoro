@@ -7,7 +7,7 @@ class App extends React.Component {
       sessionTimeEntry: 25, //in min
       breakTimeEntry: 5, //in min
       sessionRemainingSeconds: 1500, //in seconds
-      breakRemainingSeconds: 300, //in seconds
+      breakRemainingSeconds: 10, //in seconds
       running: false,
       timerLabel: "Session"
     }
@@ -51,7 +51,6 @@ class App extends React.Component {
 
   startStop() {
     
-    let timer;
     const status = this.state.running;
 
     switch (status) {
@@ -59,20 +58,21 @@ class App extends React.Component {
         console.log("should start!")
         this.setState({ running: true })
 
-        while (this.state.breakRemainingSeconds > 0) {
-          timer = setInterval(() => {
-            this.setState({
-              breakRemainingSeconds: this.state.breakRemainingSeconds - 1
-            });
-            console.log(this.state.breakRemainingSeconds);
+          this.timer = setInterval(() => {
+              if (this.state.breakRemainingSeconds > 0) {
+                this.setState({
+                  breakRemainingSeconds: this.state.breakRemainingSeconds - 1
+                });
+                console.log(this.state.breakRemainingSeconds);
+              }
           }, 1000)
-        }
+        
 
         break;
       case true:
         console.log("should stop")
         this.setState({ running: false })
-        clearInterval(timer)
+        clearInterval(this.timer)
         break;
       default:
         break; 
