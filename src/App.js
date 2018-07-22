@@ -15,7 +15,7 @@ class App extends React.Component {
     this.subSession = this.subSession.bind(this);
     this.addBreak = this.addBreak.bind(this);
     this.subBreak = this.subBreak.bind(this);
-    //this.startStop = this.startStop.bind(this);
+    this.startStop = this.startStop.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
     this.formatMinutes = this.formatMinutes.bind(this);
   }
@@ -49,31 +49,45 @@ class App extends React.Component {
     })
   }
 
-  // startStop() {
-  //   const sessionSeconds = this.state.sessionRemainingSeconds;
-  //   const breakSeconds = this.state.breakRemainingSeconds;
-  //   // seconds = seconds < 10 ? "0" + seconds : seconds; //edit these...seconds used to be % 60 and now is not
-  //   // minutes = minutes < 10 ? "0" + minutes : minutes;
+  startStop() {
+    
+    let timer;
+    const status = this.state.running;
 
+    switch (status) {
+      case false:
+        console.log("should start!")
+        this.setState({ running: true })
 
-  //   switch (this.state.running) {
-  //     case false:
-  //       this.interval = setInterval(() => this.setState({
+        while (this.state.breakRemainingSeconds > 0) {
+          timer = setInterval(() => {
+            this.setState({
+              breakRemainingSeconds: this.state.breakRemainingSeconds - 1
+            });
+            console.log(this.state.breakRemainingSeconds);
+          }, 1000)
+        }
 
-  //       }))
-  //       break;
-  //     case true:
-  //       //pause timer
-  //       break; 
-  //   }
-  // }
+        break;
+      case true:
+        console.log("should stop")
+        this.setState({ running: false })
+        clearInterval(timer)
+        break;
+      default:
+        break; 
+    }
+
+  }
 
   resetTimer() {
     this.setState({
       sessionTimeEntry: 25,
       breakTimeEntry: 5,
       sessionRemainingSeconds: 1500,
-      breakRemainingSeconds: 300
+      breakRemainingSeconds: 300,
+      running: false,
+      timerLabel: "Session"
     })
   }
 
