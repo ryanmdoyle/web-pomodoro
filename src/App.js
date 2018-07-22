@@ -7,7 +7,7 @@ class App extends React.Component {
       sessionTimeEntry: 25, //in min
       breakTimeEntry: 5, //in min
       sessionRemainingSeconds: 1500, //in seconds
-      breakRemainingSeconds: 10, //in seconds
+      breakRemainingSeconds: 300, //in seconds
       running: false,
       timerLabel: "Session"
     }
@@ -58,14 +58,19 @@ class App extends React.Component {
         console.log("should start!")
         this.setState({ running: true })
 
-          this.timer = setInterval(() => {
-              if (this.state.breakRemainingSeconds > 0) {
-                this.setState({
-                  breakRemainingSeconds: this.state.breakRemainingSeconds - 1
-                });
-                console.log(this.state.breakRemainingSeconds);
-              }
-          }, 1000)
+        this.timer = setInterval(() => {
+          if (this.state.sessionRemainingSeconds > 0) {
+            this.setState({
+              sessionRemainingSeconds: this.state.sessionRemainingSeconds - 1
+            });
+            console.log(this.state.sessionRemainingSeconds);
+          } else if (this.state.breakRemainingSeconds > 0) {
+            this.setState({
+              breakRemainingSeconds: this.state.breakRemainingSeconds - 1
+            });
+            console.log(this.state.breakRemainingSeconds);
+          }    
+          }, 1000)  
         
 
         break;
@@ -101,7 +106,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="clock">
         <h1>Pomodoro Clock</h1>
         <h2>{this.state.sessionTimeEntry}</h2>
         <div id='timerContainer'>
