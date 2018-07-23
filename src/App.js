@@ -21,16 +21,17 @@ class App extends React.Component {
   }
 
   addSession() { //adding and subtracting methods need to also chage the session remaining in seconds to mirrow the entry time if ever changed
+    
     this.setState({
       sessionTimeEntry: this.state.sessionTimeEntry + 1,
-      sessionRemainingSeconds: this.state.sessionRemainingSeconds + 60
+      sessionRemainingSeconds: (this.state.sessionTimeEntry + 1) * 60
     })
   }
 
   subSession() {
     this.setState({
       sessionTimeEntry: this.state.sessionTimeEntry - 1,
-      sessionRemainingSeconds: this.state.sessionRemainingSeconds - 60
+      sessionRemainingSeconds: (this.state.sessionTimeEntry - 1) * 60
 
     })
   }
@@ -38,14 +39,14 @@ class App extends React.Component {
   addBreak() {
     this.setState({
       breakTimeEntry: this.state.breakTimeEntry + 1,
-      breakRemainingSeconds: this.state.breakRemainingSeconds + 60
+      breakRemainingSeconds: (this.state.breakTimeEntry + 1) * 60
     })
   }
 
   subBreak() {
     this.setState({
       breakTimeEntry: this.state.breakTimeEntry - 1,
-      breakRemainingSeconds: this.state.breakRemainingSeconds - 60
+      breakRemainingSeconds: (this.state.breakTimeEntry - 1) * 60
     })
   }
 
@@ -61,12 +62,14 @@ class App extends React.Component {
         this.timer = setInterval(() => {
           if (this.state.sessionRemainingSeconds > 0) {
             this.setState({
-              sessionRemainingSeconds: this.state.sessionRemainingSeconds - 1
+              sessionRemainingSeconds: this.state.sessionRemainingSeconds - 1,
+              timerLabel: 'Session'
             });
             console.log(this.state.sessionRemainingSeconds);
           } else if (this.state.breakRemainingSeconds > 0) {
             this.setState({
-              breakRemainingSeconds: this.state.breakRemainingSeconds - 1
+              breakRemainingSeconds: this.state.breakRemainingSeconds - 1,
+              timerLabel: 'Break'
             });
             console.log(this.state.breakRemainingSeconds);
           }    
@@ -108,22 +111,25 @@ class App extends React.Component {
     return (
       <div id="clock">
         <h1>Pomodoro Clock</h1>
-        <h2>{this.state.sessionTimeEntry}</h2>
-        <div id='timerContainer'>
-          <h3 id="session-label">Session Time</h3>
-          <h3 id="session-length">{this.formatMinutes(this.state.sessionRemainingSeconds)}</h3>
-          <button onClick={this.addSession} id="session-increment">^</button>
-          <button onClick={this.subSession} id="session-decrement">v</button>
-        </div>
-        <div id='timerContainer'>
-          <h3 id="break-label">Break Time</h3>
-          <h3 id="break-length">{this.state.breakTimeEntry}</h3>
-          <button onClick={this.addBreak} id="break-increment">^</button>
-          <button onClick={this.subBreak} id="break-decrement">v</button>
-        </div>
-        <div>
-          <button onClick={this.startStop} id="start-stop">Start/Stop</button>
-          <button onClick={this.resetTimer} id="reset">Reset</button>
+        <h1>{(this.state.timerLabel==="Break") ?  this.formatMinutes(this.state.breakRemainingSeconds) : this.formatMinutes(this.state.sessionRemainingSeconds)}</h1>
+        <h2>{this.state.timerLabel}</h2>
+        <div className="flexContainer">
+          <div id='timerContainer'>
+            <h3 id="session-label">Session Time</h3>
+            <h3 id="session-length">{this.state.sessionTimeEntry}</h3>
+            <button onClick={this.addSession} id="session-increment">^</button>
+            <button onClick={this.subSession} id="session-decrement">v</button>
+          </div>
+          <div id='timerContainer'>
+            <h3 id="break-label">Break Time</h3>
+            <h3 id="break-length">{this.state.breakTimeEntry}</h3>
+            <button onClick={this.addBreak} id="break-increment">^</button>
+            <button onClick={this.subBreak} id="break-decrement">v</button>
+          </div>
+          <div>
+            <button onClick={this.startStop} id="start-stop">Start/Stop</button>
+            <button onClick={this.resetTimer} id="reset">Reset</button>
+          </div>
         </div>
       </div>
     )
