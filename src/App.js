@@ -111,24 +111,27 @@ class App extends React.Component {
     return (
       <div id="clock">
         <h1>Pomodoro Clock</h1>
-        <h1>{(this.state.timerLabel==="Break") ?  this.formatMinutes(this.state.breakRemainingSeconds) : this.formatMinutes(this.state.sessionRemainingSeconds)}</h1>
-        <h2>{this.state.timerLabel}</h2>
+        <div id="mainTimer">
+          <h1>{(this.state.timerLabel==="Break") ?  this.formatMinutes(this.state.breakRemainingSeconds) : this.formatMinutes(this.state.sessionRemainingSeconds)}</h1>
+          <h2>{this.state.timerLabel}</h2>
+          <div id="timerControls" className="flexContainer">
+              <button onClick={this.startStop} id="start-stop">Start/Stop</button>
+              <button onClick={this.resetTimer} id="reset">Reset</button>
+          </div>
+        </div>
         <div className="flexContainer">
-          <div id='timerContainer'>
-            <h3 id="session-label">Session Time</h3>
-            <h3 id="session-length">{this.state.sessionTimeEntry}</h3>
-            <button onClick={this.addSession} id="session-increment">+</button>
-            <button onClick={this.subSession} id="session-decrement">-</button>
+          <div id='timerContainer'  className="flexContainer">
+            <h3 id="session-label" className="timerContainerLabels">Session Time</h3>
+            <h3 id="session-length"  className="timerContainerLabels">{this.state.sessionTimeEntry}</h3>
+            <button onClick={this.subSession} id="session-decrement" className="timerContainerButtons">-</button>
+            <button onClick={this.addSession} id="session-increment" className="timerContainerButtons">+</button>
           </div>
-          <div id='timerContainer'>
-            <h3 id="break-label">Break Time</h3>
-            <h3 id="break-length">{this.state.breakTimeEntry}</h3>
-            <button onClick={this.addBreak} id="break-increment">+</button>
-            <button onClick={this.subBreak} id="break-decrement">-</button>
-          </div>
-          <div>
-            <button onClick={this.startStop} id="start-stop">Start/Stop</button>
-            <button onClick={this.resetTimer} id="reset">Reset</button>
+          <div id='timerContainer'  className="flexContainer">
+            <h3 id="break-label"  className="timerContainerLabels">Break Time</h3>
+            <h3 id="break-length"  className="timerContainerLabels">{this.state.breakTimeEntry}</h3>
+            <button onClick={this.subBreak} id="break-decrement" className="timerContainerButtons">-</button>
+            <button onClick={this.addBreak} id="break-increment" className="timerContainerButtons">+</button>
+            
           </div>
         </div>
       </div>

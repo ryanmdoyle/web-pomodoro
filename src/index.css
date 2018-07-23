@@ -13,8 +13,18 @@ html { font-size: 1vw; }
 
 h1 {
   font-family: 'Ubuntu', sans-serif;
+  font-size: 4em;
+  font-weight: 700;
+}
+
+h2 {
   font-size: 3em;
   font-weight: 700;
+}
+
+h3 {
+  font-size: 2em;
+  font-weight: 500;
 }
 
 h1, h2, h3, p {
@@ -27,6 +37,7 @@ button {
   height: 30px;
   width: 40%;
   color: white;
+  font-size: 1.5em;
 }
 .flexContainer {
   display: flex;
@@ -34,16 +45,49 @@ button {
   justify-content: space-evenly;
 }
 
+.timerContainerLabels {
+  width: 100%;
+  margin: 2vh 0vw 0vh 0vw;
+}
+
+.timerContainerButtons {
+  width: 25%;
+  margin-top: 2vh;
+}
+
 #timerContainer {
   width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#timerControls {
+  margin:5vh 0vw 5vh 0vw;
+}
+
+#mainTimer {
+  background: rgba(50, 50, 50, 0.15);
+  padding: 0.5vh 0vw 0.5vh 0vw;
+  border-radius: 10px;
 }
 
 #clock {
   position: relative;
-  background: rgba(50, 50, 50, 0.25);
-  width: 30vw;
+  background: rgba(50, 50, 50, 0.15);
+  width: 50vw;
   margin: auto;
   margin-top: 10vh;
   padding: 2vh 5vw 3vh 5vw;
-  border-radius: 20px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1000px) {
+  #clock {
+    width: 80vw;
+  }
+
+  button {
+    font-size: 2em;
+  }
 }
