@@ -21,64 +21,82 @@ class App extends React.Component {
   }
 
   addSession() { //adding and subtracting methods need to also chage the session remaining in seconds to mirrow the entry time if ever changed
-    
-    this.setState({
-      sessionTimeEntry: this.state.sessionTimeEntry + 1,
-      sessionRemainingSeconds: (this.state.sessionTimeEntry + 1) * 60
-    })
+    if (this.state.sessionTimeEntry < 60 && this.state.running === false) {
+      this.setState({
+        sessionTimeEntry: this.state.sessionTimeEntry + 1,
+        sessionRemainingSeconds: (this.state.sessionTimeEntry + 1) * 60
+      })
+    }
   }
 
   subSession() {
-    this.setState({
-      sessionTimeEntry: this.state.sessionTimeEntry - 1,
-      sessionRemainingSeconds: (this.state.sessionTimeEntry - 1) * 60
-
-    })
+    if (this.state.sessionTimeEntry > 1 && this.state.running === false) {
+      this.setState({
+        sessionTimeEntry: this.state.sessionTimeEntry - 1,
+        sessionRemainingSeconds: (this.state.sessionTimeEntry - 1) * 60
+  
+      })
+    }
   }
   
   addBreak() {
-    this.setState({
-      breakTimeEntry: this.state.breakTimeEntry + 1,
-      breakRemainingSeconds: (this.state.breakTimeEntry + 1) * 60
-    })
+    if (this.state.breakTimeEntry < 60 && this.state.running === false) {
+      this.setState({
+        breakTimeEntry: this.state.breakTimeEntry + 1,
+        breakRemainingSeconds: (this.state.breakTimeEntry + 1) * 60
+      })
+    }
   }
 
   subBreak() {
-    this.setState({
-      breakTimeEntry: this.state.breakTimeEntry - 1,
-      breakRemainingSeconds: (this.state.breakTimeEntry - 1) * 60
-    })
+    if (this.state.breakTimeEntry > 1 && this.state.running === false) {
+      this.setState({
+        breakTimeEntry: this.state.breakTimeEntry - 1,
+        breakRemainingSeconds: (this.state.breakTimeEntry - 1) * 60
+      })
+    }
   }
 
   startStop() {
     
     const status = this.state.running;
-
+    const chime1 = new Audio("https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352659__foolboymedia__alert-chime-1.mp3")
+    const chime2 = new Audio("https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352658__foolboymedia__alert-chime-2.mp3")
     switch (status) {
       case false:
-        console.log("should start!")
+        console.log("Begin Timer")
         this.setState({ running: true })
 
         this.timer = setInterval(() => {
-          if (this.state.sessionRemainingSeconds > 0) {
-            this.setState({
-              sessionRemainingSeconds: this.state.sessionRemainingSeconds - 1,
-              timerLabel: 'Session'
-            });
-            console.log(this.state.sessionRemainingSeconds);
-          } else if (this.state.breakRemainingSeconds > 0) {
-            this.setState({
-              breakRemainingSeconds: this.state.breakRemainingSeconds - 1,
-              timerLabel: 'Break'
-            });
-            console.log(this.state.breakRemainingSeconds);
-          }    
-          }, 1000)  
-        
-
+          if (this.state.running) {
+            if (this.state.sessionRemainingSeconds > 0) {
+              this.setState({
+                sessionRemainingSeconds: this.state.sessionRemainingSeconds - 1,
+                timerLabel: 'Session'
+              });
+            } else if (this.state.breakRemainingSeconds > 0 && this.state.timerLabel === "Session") { //wont continue
+              this.setState({
+                timerLabel: 'Break'
+              });
+              chime1.play();
+            } else if (this.state.breakRemainingSeconds > 0) {
+              this.setState({
+                breakRemainingSeconds: this.state.breakRemainingSeconds - 1,
+                timerLabel: 'Break'
+              });
+            } else {
+              chime2.play()
+              this.setState({
+                sessionRemainingSeconds: this.state.sessionTimeEntry * 60,
+                breakRemainingSeconds: this.state.breakTimeEntry * 60,
+                timerLabel: 'Session'
+              });
+            }
+          }
+        }, 1000)
         break;
       case true:
-        console.log("should stop")
+        console.log("Stop Timer")
         this.setState({ running: false })
         clearInterval(this.timer)
         break;
