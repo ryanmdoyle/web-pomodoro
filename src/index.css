@@ -21,6 +21,13 @@ h1, h2, h3, p {
   text-align: center;
 }
 
+button {
+  background: rgba(50, 50, 50, 0.25);
+  border: 0;
+  height: 30px;
+  width: 40%;
+  color: white;
+}
 .flexContainer {
   display: flex;
   flex-wrap: wrap;
@@ -33,7 +40,7 @@ h1, h2, h3, p {
 
 #clock {
   position: relative;
-  background: rgba(50, 50, 50, 0.5);
+  background: rgba(50, 50, 50, 0.25);
   width: 30vw;
   margin: auto;
   margin-top: 10vh;

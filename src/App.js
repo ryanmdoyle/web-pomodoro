@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 
 class App extends React.Component {
   constructor(props) {
@@ -117,14 +117,14 @@ class App extends React.Component {
           <div id='timerContainer'>
             <h3 id="session-label">Session Time</h3>
             <h3 id="session-length">{this.state.sessionTimeEntry}</h3>
-            <button onClick={this.addSession} id="session-increment">^</button>
-            <button onClick={this.subSession} id="session-decrement">v</button>
+            <button onClick={this.addSession} id="session-increment">+</button>
+            <button onClick={this.subSession} id="session-decrement">-</button>
           </div>
           <div id='timerContainer'>
             <h3 id="break-label">Break Time</h3>
             <h3 id="break-length">{this.state.breakTimeEntry}</h3>
-            <button onClick={this.addBreak} id="break-increment">^</button>
-            <button onClick={this.subBreak} id="break-decrement">v</button>
+            <button onClick={this.addBreak} id="break-increment">+</button>
+            <button onClick={this.subBreak} id="break-decrement">-</button>
           </div>
           <div>
             <button onClick={this.startStop} id="start-stop">Start/Stop</button>
@@ -138,12 +138,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// var sessionRemainingSeconds = 12;
-// var seconds = (sessionRemainingSeconds * 60) % 60;
-// var minutes = sessionRemainingSeconds;
-//     seconds = seconds < 10 ? "0" + seconds : seconds;
-//     minutes = minutes < 10 ? "0" + minutes : minutes;
-//     console.log(seconds);
-//     console.log(minutes);
