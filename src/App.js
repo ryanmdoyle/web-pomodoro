@@ -69,6 +69,12 @@ class App extends React.Component {
 
         this.timer = setInterval(() => {
           if (this.state.running) {
+
+            if ( (this.state.sessionRemainingSeconds === 0 && this.state.breakRemainingSeconds === 1) || (this.state.sessionRemainingSeconds === 1 && this.state.breakRemainingSeconds === this.state.breakTimeEntry*60) ) {
+              chime1.play();
+            }
+
+
             if (this.state.sessionRemainingSeconds > 0) {
               this.setState({
                 sessionRemainingSeconds: this.state.sessionRemainingSeconds - 1,
@@ -78,14 +84,14 @@ class App extends React.Component {
               this.setState({
                 timerLabel: 'Break'
               });
-              chime1.play();
+              //chime1.play();
             } else if (this.state.breakRemainingSeconds > 0) {
               this.setState({
                 breakRemainingSeconds: this.state.breakRemainingSeconds - 1,
                 timerLabel: 'Break'
               });
             } else {
-              chime2.play()
+              //chime2.play()
               this.setState({
                 sessionRemainingSeconds: this.state.sessionTimeEntry * 60,
                 breakRemainingSeconds: this.state.breakTimeEntry * 60,
