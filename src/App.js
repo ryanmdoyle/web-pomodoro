@@ -61,7 +61,6 @@ class App extends React.Component {
     
     const status = this.state.running;
     const chime1 = new Audio("https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352659__foolboymedia__alert-chime-1.mp3")
-    const chime2 = new Audio("https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352658__foolboymedia__alert-chime-2.mp3")
     switch (status) {
       case false:
         console.log("Begin Timer")
