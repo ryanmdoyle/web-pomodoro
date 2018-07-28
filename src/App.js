@@ -60,7 +60,7 @@ class App extends React.Component {
   startStop() {
     
     const status = this.state.running;
-    const chime1 = new Audio("https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352659__foolboymedia__alert-chime-1.mp3")
+    // const chime1 = new Audio("https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352659__foolboymedia__alert-chime-1.mp3") // changed to use <audio> to pass FCC tests
     switch (status) {
       case false:
         console.log("Begin Timer")
@@ -70,7 +70,8 @@ class App extends React.Component {
           if (this.state.running) {
 
             if ( (this.state.sessionRemainingSeconds === 0 && this.state.breakRemainingSeconds === 1) || (this.state.sessionRemainingSeconds === 1 && this.state.breakRemainingSeconds === this.state.breakTimeEntry*60) ) {
-              chime1.play();
+              // chime1.play(); // changed to use <audio> to pass FCC tests
+              document.getElementById("notification").play();
             }
 
 
@@ -83,14 +84,12 @@ class App extends React.Component {
               this.setState({
                 timerLabel: 'Break'
               });
-              //chime1.play();
             } else if (this.state.breakRemainingSeconds > 0) {
               this.setState({
                 breakRemainingSeconds: this.state.breakRemainingSeconds - 1,
                 timerLabel: 'Break'
               });
             } else {
-              //chime2.play()
               this.setState({
                 sessionRemainingSeconds: this.state.sessionTimeEntry * 60,
                 breakRemainingSeconds: this.state.breakTimeEntry * 60,
@@ -154,7 +153,7 @@ class App extends React.Component {
             <h3 id="break-length"  className="timerContainerLabels">{this.state.breakTimeEntry}</h3>
             <button onClick={this.subBreak} id="break-decrement" className="timerContainerButtons">-</button>
             <button onClick={this.addBreak} id="break-increment" className="timerContainerButtons">+</button>
-            
+            <audio id="notification" src="https://res.cloudinary.com/dwut3uz4n/video/upload/v1532362194/352659__foolboymedia__alert-chime-1.mp3" preload="auto"></audio> 
           </div>
         </div>
       </div>
