@@ -9,21 +9,21 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
-html { font-size: 1vw; }
+html { font-size: 16px; }
 
 h1 {
   font-family: 'Ubuntu', sans-serif;
-  font-size: 4em;
+  font-size: 4rem;
   font-weight: 700;
 }
 
 h2 {
-  font-size: 3em;
+  font-size: 3rem;
   font-weight: 700;
 }
 
 h3 {
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 500;
 }
 
@@ -38,7 +38,7 @@ button {
   height: 50px;
   width: 30%;
   color: white;
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 .flexContainer {
   display: flex;
@@ -75,7 +75,6 @@ button {
 
 #clock {
   position: relative;
-  background: rgba(50, 50, 50, 0.15);
   width: 50vw;
   margin: auto;
   margin-top: 10vh;
@@ -89,29 +88,64 @@ button {
   }
 
   button {
-    font-size: 2em;
+    font-size: 2rem;
   }
 }
 
-@media (max-height: 813px) and (max-width: 460px) {
+
+@media (max-width: 460px) {
   #clock {
-    margin-top: 5vh;
-    height: 80vh;
+    margin-top: 0;
+    height: 100vh;
   }
 
   #mainTimer {
     height: 40vh;
   }
+}
 
-  .timerContainerLabels, h2 {
-    font-size: 5em;
-  }
-
+@media (max-height: 800px) {
   h1 {
-    font-size: 8em;
+    font-size: 3rem
+  }
+  
+  h2 {
+    font-size: 2rem
   }
 
-  button {
-    font-size: 4em;
+  h3 {
+    font-size: 1.5rem
+  }
+
+  #clock {
+    margin-top: 0;
+    height: 100vh;
+  }
+
+  #mainTimer {
+    height: 40vh;
+  }
+}
+
+@media (max-height: 600px) {
+  h1 {
+    font-size: 2rem
+  }
+  
+  h2 {
+    font-size: 1.5rem
+  }
+
+  h3 {
+    font-size: 1.25rem
+  }
+
+  #clock {
+    margin-top: 0;
+    height: 100vh;
+  }
+
+  #mainTimer {
+    height: 40vh;
   }
 }
